@@ -66,8 +66,8 @@
               (uv2nix_hammer_overrides.overrides pkgs)
             ]
           );
-      virtualenv-all = pythonSet.mkVirtualEnv "hello-world-env" workspace.deps.all;
-      virtualenv-default = pythonSet.mkVirtualEnv "hello-world-env" workspace.deps.all;
+      virtualenv-all = pythonSet.mkVirtualEnv "hn-fetcher-env" workspace.deps.all;
+      virtualenv-default = pythonSet.mkVirtualEnv "hn-fetcher-env" workspace.deps.all;
       impureShell = pkgs.mkShell {
         packages = [
           python
@@ -99,7 +99,7 @@
             lib.composeManyExtensions [
               editableOverlay
               (final: prev: {
-                hello-world = prev.hello-world.overrideAttrs (old: {
+                hn-fetcher = prev.hn-fetcher.overrideAttrs (old: {
                   # It's a good idea to filter the sources going into an editable build
                   # so the editable package doesn't have to be rebuilt on every change.
                   src = lib.fileset.toSource {
@@ -107,7 +107,7 @@
                     fileset = lib.fileset.unions [
                       (old.src + "/pyproject.toml")
                       (old.src + "/README.md")
-                      (old.src + "/src/hello_world/__init__.py")
+                      (old.src + "/src/hn_fetcher/__init__.py")
                     ];
                   };
                   nativeBuildInputs =
@@ -120,7 +120,7 @@
               })
             ]
           );
-          virtualenv = editablePythonSet.mkVirtualEnv "hello-world-dev-env" workspace.deps.all;
+          virtualenv = editablePythonSet.mkVirtualEnv "hn-fetcher-dev-env" workspace.deps.all;
         in
         pkgs.mkShell {
           packages = [
@@ -166,12 +166,5 @@
         inherit impureShell uv2nixShell;
         default = self.devShells.x86_64-linux.uv2nixShell;
       };
-      templates.x86_64-linux = {
-        baseline = {
-          path = ./templates/baseline;
-          description = "baseline template";
-        };
-      };
-      templates.default = self.templates.x86_64-linux.baseline;
     };
 }
