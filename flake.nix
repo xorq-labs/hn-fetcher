@@ -47,7 +47,18 @@
         sourcePreference = "wheel";
       };
 
-      pyprojectOverrides = _final: _prev: {
+      addResolved =
+        final: names:
+        (old: {
+          nativeBuildInputs =
+            (old.nativeBuildInputs or [ ])
+            ++ final.resolveBuildSystem (
+              pkgs.lib.listToAttrs (map (name: pkgs.lib.nameValuePair name [ ]) names)
+            );
+        });
+
+      pyprojectOverrides = final: prev: {
+        hash-cache = prev.hash-cache.overrideAttrs (addResolved final [ "hatchling" ]);
       };
 
       pkgs = import nixpkgs {
