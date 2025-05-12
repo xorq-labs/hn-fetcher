@@ -167,12 +167,6 @@
       lib.x86_64-linux = {
         inherit pkgs;
       };
-      apps.x86_64-linux = {
-        default = {
-          type = "app";
-          program = "${self.packages.x86_64-linux.default}/bin/hello";
-        };
-      };
       devShells.x86_64-linux = {
         inherit impureShell uv2nixShell;
         default = self.devShells.x86_64-linux.uv2nixShell;

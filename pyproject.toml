@@ -11,9 +11,6 @@ dependencies = [
     "urllib3>=2.2.3",
 ]
 
-[project.scripts]
-hello = "hn_fetcher:hello"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
