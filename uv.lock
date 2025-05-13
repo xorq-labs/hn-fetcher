@@ -169,7 +169,7 @@ wheels = [
 [[package]]
 name = "hash-cache"
 version = "0.1.0"
-source = { git = "https://github.com/xorq-labs/hash-cache#7650e68b33f51ac84ed788a06fb07c64aa187bd9" }
+source = { git = "https://github.com/xorq-labs/hash-cache#e31afe15595c39e43da3b22f2d49266808df8c19" }
 dependencies = [
     { name = "attrs" },
     { name = "cloudpickle" },
